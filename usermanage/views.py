@@ -33,9 +33,9 @@ def register_view(request):
         # 3. 雪崩效应：输入改变，输出必变
         m = hashlib.md5()# 设置算法
         m.update(password.encode())# 输入明文字节串
-        passward_m = m.hexdigest()
+        password_m = m.hexdigest()
 
-        User.objects.create(username = username,passward=passward_m)
+        User.objects.create(username = username,password=password_m)
         # 成功返回登录界面
         messages.success(request,"注册信息提交成功，在1-3个工作日内会返回审核结果")
         return render(request, 'usermanage/logon.html', locals())
@@ -48,19 +48,26 @@ def logon_view(request):
         password = request.POST['pword']
 
         user = User.objects.filter(username=username,is_active=True)
+
         # 先看用户在不在
-        print(len(user))
-
         if not user.exists():
-
-            return HttpResponse('用户不存在')
+            messages.error(request, "用户名不存在")
+            return render(request,'usermanage/logon.html',locals())
 
         m = hashlib.md5()  # 设置算法
         m.update(password.encode())  # 输入明文字节串
-        passward_m = m.hexdigest()
+        password_m = m.hexdigest()
 
         # 验证失败
-        if passward_m != user[0].passward:
-            return HttpResponse('密码错误！')
-        else:
+        if password_m != user[0].password:
+            messages.error(request,"用户名或密码错误")
+            return render(request, 'usermanage/logon.html',locals())
+        else: # 成功登录，保存seesion
+            request.session['user'] = {}
+            request.session['user']['id'] = user[0].id
+            request.session['user']['name'] = user[0].username
             return render(request, 'usermanage/index.html', locals())
+
+def success_rest_view(request):
+    username = request.session['user']['name']
+    return render(request,'usermanage/success.html',locals())

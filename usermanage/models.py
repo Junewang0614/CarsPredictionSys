@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class User(models.Model):
     username = models.CharField("用户名",max_length = 30,unique=True)
-    passward = models.CharField('密码',max_length = 40)
+    password = models.CharField('密码',max_length = 40)
     created_time = models.DateTimeField('创建时间',auto_now_add=True)
     updated_time = models.DateTimeField('更新时间',auto_now=True)
     is_active = models.BooleanField('是否活跃',default=False) # 这个表示这个用户是否合法
