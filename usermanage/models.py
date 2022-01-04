@@ -1,6 +1,19 @@
 from django.db import models
 
 # Create your models here.
+
+# 厂商
+class Factory(models.Model):
+    fname = models.CharField("厂商名",max_length=40,unique=True)
+    finfo = models.CharField("厂商信息",max_length=1000,null=True,blank=True) #允许为空
+    faddress = models.CharField("厂商地址",max_length=500,null = True,blank=True) # 允许为空
+    flogo = models.CharField("厂商logo",max_length=500,null = True,blank=True)
+
+    class Meta:
+        db_table = "FACTORY"
+        verbose_name = "厂商数据表"
+
+# 用户
 class User(models.Model):
     username = models.CharField("用户名",max_length = 30,unique=True)
     password = models.CharField('密码',max_length = 40)
@@ -15,6 +28,9 @@ class User(models.Model):
 
     # 保存生产许可证的
     createimg = models.ImageField('生产许可证',null = True,upload_to='userimgs/')
+
+    # 厂商的外键,默认为空
+    factory = models.ForeignKey(Factory,on_delete=models.CASCADE,null = True,blank=True)
 
     class Meta:
         db_table = "USER"

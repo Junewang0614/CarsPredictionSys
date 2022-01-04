@@ -23,8 +23,11 @@
 <body>
   <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">{{ username }}的心愿</h5>
-      <h6 class="card-subtitle mb-2 text-muted">非常想实现</h6>
+      <h5 class="card-title">{{ username }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ fname }}</h6>
+        {% if flogo %}
+            <img src = "{{ flogo }}" width = 100px>
+        {% endif %}
       <p class="card-text">{{ username }}把汽车销量预测系统的活动图在1.4号晚上24:00前全画完</p>
       <a href="#" class="card-link">Card link</a>
       <a href="#" class="card-link">Another link</a>

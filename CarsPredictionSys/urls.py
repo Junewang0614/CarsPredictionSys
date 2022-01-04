@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import usermanage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('usermanage/',include('usermanage.urls')),
+    path('carmanage/',include('carmanage.urls')),
 ]
