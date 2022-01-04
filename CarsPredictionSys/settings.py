@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
+    'django.contrib.messages', # 这个是用于消息传递的
     'django.contrib.staticfiles',
     'usermanage',
+    'carmanage',
 ]
 
 MIDDLEWARE = [
