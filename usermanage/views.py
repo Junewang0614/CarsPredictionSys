@@ -5,8 +5,12 @@ from django.shortcuts import render
 from .models import User,Factory
 import hashlib
 from django.contrib import messages
+from usermanage import utils
+import os
 # Create your views here.
 
+
+#==========================view function=========================================
 def register_view(request):
 
     if request.method == "GET":
@@ -88,7 +92,7 @@ def logon_view(request):
 
             return render(request, 'usermanage/index.html', locals())
 
+# test
 def success_rest_view(request):
-    username = request.session['user']['name']
-    names = ["王一丹","刘慧琳","夏志文","任思怡","罗晟"]
+    news = utils.get_all_news()
     return render(request,'usermanage/index2.html',locals())
