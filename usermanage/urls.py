@@ -6,5 +6,6 @@ urlpatterns = [
     path('reg/',views.register_view),
     path('logon/',views.logon_view),
     path('succ/',views.success_rest_view),
-    # path('utils/',utils.importfacs),
+    path('importfacs/',utils.importfacs),
+    path('add_file/',views.add_file_view),
 ]

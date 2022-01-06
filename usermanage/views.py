@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import User,Factory
@@ -96,3 +97,25 @@ def logon_view(request):
 def success_rest_view(request):
     news = utils.get_all_news()
     return render(request,'usermanage/index2.html',locals())
+# test2
+def add_file_view(request):
+    if request.method == 'GET':
+        return render(request,'usermanage/addfile.html')
+    elif request.method == 'POST':
+        pic1 = request.FILES.get('img1') # 获取图片
+
+        media_root = settings.MEDIA_ROOT # 存储图片的文件夹
+        print("base_root=============",settings.BASE_DIR)
+        print("media_root===========",settings.MEDIA_ROOT)
+        fullpath = os.path.join(media_root,pic1.name)
+        print("picture name=====",pic1.name)
+        print("fullpath=========",fullpath)
+        if not os.path.exists(media_root):
+            print("no!!!!!!!!!!!!!")
+            os.makedirs(media_root)
+
+        with open(fullpath,"wb") as f:
+            for c in pic1.chunks():
+                f.write(c)
+        picname = pic1.name
+        return render(request,'usermanage/imgtest.html',locals())
