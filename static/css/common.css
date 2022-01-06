@@ -1,0 +1,29 @@
+/* 公共样式 */
+.fl{
+    float: left；
+}
+.fr{
+    float: right;
+}
+/* 版心 */
+.w{
+    width: 1200px;
+    margin: 0 auto;
+}
+/* 顶部快捷导航 */
+.shortcut{
+    height: 31px;
+    /* background-color: #81a3d6b2; */
+    line-height: 31px;
+}
+.shortcut li{
+    display:inline;
+    padding-left: 6.45rem;
+    /* float: left; */
+    color: aliceblue;
+}
+
+.h1{ 
+    font-size: .473rem;
+    color: #fff;
+}

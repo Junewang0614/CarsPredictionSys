@@ -6,4 +6,5 @@ urlpatterns = [
     path("importcars/",utils.importcars),
     path("importsales/",utils.importsales),
     path("importimage/<str:factory>",utils.importcimages),
+    path("delectsales/",utils.delectsales),
 ]

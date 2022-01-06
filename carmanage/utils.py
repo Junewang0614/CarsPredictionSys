@@ -63,7 +63,7 @@ def importcars(request):
 
 def import_sales_data(path):
     try:
-        df = pd.read_csv(path + '\\' + '上汽大众所有车型及类别.csv', encoding='utf-8', engine='python', names=['1','2','3','4','5','6','7','8'])
+        df = pd.read_csv(path + '\\' + '比亚迪所有车型及类别.csv', encoding='utf-8', engine='python', names=['1','2','3','4','5','6','7','8'])
     except Exception as e:
         print("===============ERROR====================")
         print(e)
@@ -75,7 +75,7 @@ def import_sales_data(path):
     for i in range(size):
         array = []
         name = data[i][1]
-        train_path = path + "\\" + "上汽大众所有车型月销量" + "\\" + name + '.csv'
+        train_path = path + "\\" + "比亚迪所有车型月销量" + "\\" + name + '.csv'
         try:
             df = pd.read_csv(train_path, encoding='utf-8', engine='python')
         except Exception as e:
@@ -91,9 +91,11 @@ def import_sales_data(path):
                 train_data[i][1] = 0
         list.append([name, train_data])
     return list
-
+def delectsales(request):
+    Sale.objects.all().delete()
+    return HttpResponse('delect sales is ok')
 def importsales(request):
-    filepath = './static/loacaldata/上汽大众'
+    filepath = './static/loacaldata/比亚迪'
     # Sale.objects.all().delete()
     dataset = import_sales_data(filepath)
     # print(dataset)

@@ -15,7 +15,8 @@ import os
 def register_view(request):
 
     if request.method == "GET":
-        return render(request,'usermanage/register.html')
+        print("get is ok")
+        return render(request,'usermanage/login.html')
     elif request.method == 'POST':
         # 1.两个密码比对
         # 2.用户名是否可用
@@ -29,10 +30,10 @@ def register_view(request):
 
         if password != vpass:
             messages.error(request, '两次密码输入不一致')
-            return render(request,'usermanage/register.html',locals())
+            return render(request,'usermanage/login.html',locals())
         if User.objects.filter(username = username):
             messages.error(request,'用户名已注册')
-            return render(request,'usermanage/register.html',locals())
+            return render(request,'usermanage/login.html',locals())
 
         # Hash算法
         # 特点：
@@ -54,11 +55,11 @@ def register_view(request):
         User.objects.create(username = username,password=password_m,factory=fset)
         # 成功返回登录界面
         messages.success(request,"注册信息提交成功，在1-3个工作日内会返回审核结果")
-        return render(request, 'usermanage/logon.html', locals())
+        return render(request, 'usermanage/login.html', locals())
 
 def logon_view(request):
     if request.method == 'GET':
-        return render(request,'usermanage/logon.html')
+        return render(request,'usermanage/login.html')
     if request.method == 'POST':
         username = request.POST['uname']
         password = request.POST['pword']
@@ -68,7 +69,7 @@ def logon_view(request):
         # 先看用户在不在
         if not user.exists():
             messages.error(request, "用户名不存在")
-            return render(request,'usermanage/logon.html',locals())
+            return render(request,'usermanage/login.html',locals())
 
         m = hashlib.md5()  # 设置算法
         m.update(password.encode())  # 输入明文字节串
@@ -77,7 +78,7 @@ def logon_view(request):
         # 验证失败
         if password_m != user[0].password:
             messages.error(request,"用户名或密码错误")
-            return render(request, 'usermanage/logon.html',locals())
+            return render(request, 'usermanage/login.html',locals())
         else: # 成功登录，保存seesion
             request.session['user'] = {}
             request.session['user']['id'] = user[0].id
@@ -91,12 +92,12 @@ def logon_view(request):
             request.session['factory']['id'] = user[0].factory.id
             request.session['factory']['name'] = fname
 
-            return render(request, 'usermanage/index.html', locals())
+            return render(request, 'usermanage/index_test.html', locals())
 
 # test
 def success_rest_view(request):
     news = utils.get_all_news()
-    return render(request,'usermanage/index2.html',locals())
+    return render(request,'usermanage/index.html',locals())
 # test2
 def add_file_view(request):
     if request.method == 'GET':

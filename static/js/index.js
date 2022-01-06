@@ -93,11 +93,9 @@
 
 
 //柱状图2
-(function (namedata) {
-
-
+(function () {
   // 1实例化对象
-  var myChart = echarts.init(document.querySelector(".bar2 .chart"));
+  var myChart = echarts.init(document.querySelector(".map .chart"));
   //声明颜色数组
   var myColor = ["#1089E7", "#1089E7", "#F57474", "#56D0E3", "#F8B448", "#8B78F6"];
   // 2. 指定配置项和数据
@@ -114,8 +112,7 @@
     yAxis: [
       {
         type: 'category',
-        //data: ["HTML5", "CSS3", "javascript", "VUE", "NODE"],
-        data:namedata,
+        data: ["HTML5", "CSS3", "javascript", "VUE", "NODE"],
         inverse: true,
         //不显示y轴线条
         axisLine: {
@@ -205,8 +202,7 @@
   window.addEventListener("resize", function () {
     myChart.resize();
   });
-})(names);
-
+})();
 
 //折线图
 (function () {
